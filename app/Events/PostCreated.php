@@ -39,4 +39,14 @@ class PostCreated implements ShouldBroadcast // para rodar com fila (queue)
         //return new PrivateChannel('channel-name');
         return new Channel('post-created');
     }
+
+    public function broadcastWith()
+    {
+        return [
+            'post' => [
+                'name' => $this->post->title,
+                'date' => $this->post->created_at->format('d/m/Y H:i'),
+            ],
+        ];
+    }
 }
